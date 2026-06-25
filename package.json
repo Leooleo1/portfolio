@@ -1,0 +1,12 @@
+{
+  "name": "portfolio-leonardo-lucena",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio estatico de Leonardo Lucena pronto para GitHub e Railway.",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

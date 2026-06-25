@@ -1,0 +1,162 @@
+/* =====================================================================
+   layout.css — Estrutura: casca (shell), sidebar e coluna de conteúdo
+   Mobile-first. Sidebar vira gaveta no mobile e trilho fixo no desktop.
+   ===================================================================== */
+
+.shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+/* ---------------------------------------------------------------------
+   SIDEBAR
+   Mobile: gaveta deslizante a partir da esquerda (escondida por padrão).
+   Desktop (>=1024px): trilho fixo de 303px sempre visível.
+   --------------------------------------------------------------------- */
+.site-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: calc(var(--space) * 6);
+  width: min(86vw, 340px);
+  height: 100dvh;
+  padding: calc(var(--space) * 12) calc(var(--space) * 8);
+  background-color: var(--color-bg-light);
+  overflow-y: auto;
+  overflow-x: clip;
+  scrollbar-gutter: stable;
+  transform: translateX(-102%);
+  transition: transform var(--duration-slow) var(--ease-out-soft);
+}
+.site-sidebar.is-open {
+  transform: translateX(0);
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: rgba(36, 36, 36, 0.38);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-base) ease,
+    visibility var(--duration-base) ease;
+}
+.sidebar-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Handle "aba" que abre a sidebar (mobile). Pílula vertical, centralizada
+   na borda esquerda — um alvo de toque claro e discreto. */
+.sidebar-tab {
+  position: fixed;
+  left: 0;
+  top: 50%;
+  z-index: 44;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--space) * 2.5) calc(var(--space) * 1.5)
+    calc(var(--space) * 2.5) calc(var(--space) * 1);
+  background: var(--color-bg-light);
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+  box-shadow: var(--shadow-card);
+  color: var(--color-ink-dim);
+  transition: padding-left var(--duration-base) var(--ease-out-soft),
+    color var(--duration-base) ease;
+}
+.sidebar-tab:hover,
+.sidebar-tab:focus-visible {
+  padding-left: calc(var(--space) * 2);
+  color: var(--color-ink);
+}
+.sidebar-tab-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sidebar-tab-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.sidebar-tab-arrow {
+  font-size: 1.25rem;
+  line-height: 1;
+  animation: nudge 2.4s var(--ease-in-out-soft) infinite;
+}
+@keyframes nudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(2px); }
+}
+
+.sidebar-close {
+  position: absolute;
+  top: calc(var(--space) * 4);
+  right: calc(var(--space) * 5);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--color-ink-dim);
+}
+
+/* ---------------------------------------------------------------------
+   COLUNA DE CONTEÚDO
+   --------------------------------------------------------------------- */
+.main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--space) * 8);
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: calc(var(--space) * 22) var(--gutter) calc(var(--space) * 6);
+}
+
+/* ---------------------------------------------------------------------
+   DESKTOP — sidebar vira trilho fixo, conteúdo ganha o espaço restante.
+   "Mobile-first" preservado: tudo acima é o estado base.
+   --------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .shell {
+    flex-direction: row;
+  }
+  .site-sidebar {
+    position: sticky;
+    top: 0;
+    transform: none;
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    height: 100dvh;
+    align-self: flex-start;
+    align-items: stretch;
+    text-align: left;
+    padding: calc(var(--space) * 10) calc(var(--space) * 8);
+  }
+  .sidebar-tab,
+  .sidebar-backdrop,
+  .sidebar-close {
+    display: none;
+  }
+  .main {
+    padding-top: calc(var(--space) * 14);
+    padding-inline: calc(var(--space) * 12);
+    margin-inline: 0;
+    max-width: none;
+    align-items: center;
+  }
+  .main > * {
+    width: 100%;
+    max-width: var(--content-max);
+  }
+}
