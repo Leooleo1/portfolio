@@ -123,6 +123,10 @@
   padding: calc(var(--space) * 22) var(--gutter) calc(var(--space) * 6);
 }
 
+.page-case .main {
+  padding-top: calc(var(--space) * 12);
+}
+
 /* ---------------------------------------------------------------------
    DESKTOP — sidebar vira trilho fixo, conteúdo ganha o espaço restante.
    "Mobile-first" preservado: tudo acima é o estado base.
@@ -154,6 +158,9 @@
     margin-inline: 0;
     max-width: none;
     align-items: center;
+  }
+  .page-case .main {
+    padding-top: calc(var(--space) * 8);
   }
   .main > * {
     width: 100%;

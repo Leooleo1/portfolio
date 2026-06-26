@@ -1,7 +1,7 @@
 /* =====================================================================
-   tokens.css — Design tokens (cores, tipografia, espaçamento, motion)
-   Base extraída do visual de referência. Ajuste aqui para re-tematizar
-   o site inteiro de uma vez só.
+   tokens.css - Design tokens (cores, tipografia, espacamento, motion)
+   Base extraida do visual de referencia. Ajuste aqui para re-tematizar
+   o site inteiro de uma vez so.
    ===================================================================== */
 
 :root {
@@ -12,8 +12,8 @@
   --font-mono: "Source Code Pro", ui-monospace, "SF Mono", Menlo, monospace;
   --font-hand: "Caveat", "Segoe Script", "Brush Script MT", cursive;
 
-  /* ---- Escala tipográfica ---- */
-  --text-small: 0.8125rem;  /* 13px */
+  /* ---- Escala tipografica ---- */
+  --text-small: 0.8125rem;
   --text-xs: 0.75rem;
   --text-sm: 0.875rem;
   --text-base: 1rem;
@@ -40,7 +40,7 @@
   --color-ink-mute: #a2a2a2;
   --color-ink-inverted: #fff;
 
-  /* ---- Acentos temáticos ---- */
+  /* ---- Acentos tematicos ---- */
   --color-pink: #bf5a7a;
   --color-pink-1: #eabaca;
   --color-teal: #168b9d;
@@ -52,7 +52,7 @@
   --color-violet: #6c4ad6;
   --color-violet-1: #b3a0ee;
 
-  /* ---- Cosmos (painéis escuros, ex.: LATEST LOG) ---- */
+  /* ---- Cosmos (paineis escuros, ex.: latest log) ---- */
   --color-starlight: #d8dde8;
   --color-cosmos: #0a0d16;
   --color-cosmos-1: #1b1f30;
@@ -65,11 +65,11 @@
   --radius-card: 20px;
   --radius-pill: 9999px;
 
-  /* ---- Espaçamento base ---- */
-  --space: 0.25rem;          /* unidade base */
-  --gutter: 1.25rem;         /* respiro lateral mobile */
-  --sidebar-w: 303px;        /* largura da sidebar no desktop */
-  --content-max: 720px;      /* largura máx. da coluna de conteúdo */
+  /* ---- Espacamento base ---- */
+  --space: 0.25rem;
+  --gutter: 1.25rem;
+  --sidebar-w: 303px;
+  --content-max: 720px;
 
   /* ---- Sombras ---- */
   --shadow-card: 0 1px 2px rgba(36, 36, 36, 0.04),
@@ -83,13 +83,50 @@
   --duration-base: 0.24s;
   --duration-slow: 0.48s;
 
-  /* Tom do tema corrente (usado pelo footer; sobrescrito via data-theme) */
+  /* Footer */
   --theme-tint: var(--color-pink);
+  --footer-text: rgba(255, 250, 247, 0.96);
+  --footer-text-soft: rgba(255, 241, 236, 0.9);
+  --footer-art: rgba(255, 219, 230, 0.44);
+  --footer-shadow: rgba(109, 31, 58, 0.14);
 }
 
-/* Variação de tom do footer por tema — trocada via [data-footer-color] */
-[data-footer-color="pink"]   { --theme-tint: var(--color-pink-1); }
-[data-footer-color="teal"]   { --theme-tint: var(--color-teal-1); }
-[data-footer-color="orange"] { --theme-tint: var(--color-orange-1); }
-[data-footer-color="green"]  { --theme-tint: var(--color-green-1); }
-[data-footer-color="violet"] { --theme-tint: var(--color-violet-1); }
+[data-footer-color="pink"] {
+  --theme-tint: #ffe8ef;
+  --footer-text: rgba(255, 250, 247, 0.96);
+  --footer-text-soft: rgba(255, 238, 242, 0.92);
+  --footer-art: rgba(255, 214, 226, 0.42);
+  --footer-shadow: rgba(109, 31, 58, 0.14);
+}
+
+[data-footer-color="teal"] {
+  --theme-tint: #def7f8;
+  --footer-text: rgba(246, 254, 255, 0.97);
+  --footer-text-soft: rgba(223, 249, 251, 0.92);
+  --footer-art: rgba(189, 235, 238, 0.34);
+  --footer-shadow: rgba(10, 69, 77, 0.16);
+}
+
+[data-footer-color="orange"] {
+  --theme-tint: #fff0de;
+  --footer-text: rgba(255, 250, 244, 0.97);
+  --footer-text-soft: rgba(255, 240, 220, 0.92);
+  --footer-art: rgba(252, 221, 186, 0.35);
+  --footer-shadow: rgba(104, 54, 17, 0.15);
+}
+
+[data-footer-color="green"] {
+  --theme-tint: #ebf9f0;
+  --footer-text: rgba(249, 255, 250, 0.97);
+  --footer-text-soft: rgba(226, 246, 232, 0.9);
+  --footer-art: rgba(168, 220, 184, 0.34);
+  --footer-shadow: rgba(12, 66, 32, 0.16);
+}
+
+[data-footer-color="violet"] {
+  --theme-tint: #f0e9ff;
+  --footer-text: rgba(250, 248, 255, 0.97);
+  --footer-text-soft: rgba(234, 225, 255, 0.92);
+  --footer-art: rgba(203, 190, 244, 0.35);
+  --footer-shadow: rgba(54, 31, 110, 0.16);
+}

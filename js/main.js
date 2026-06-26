@@ -135,31 +135,20 @@
       })
       .join("");
     // Capa = composição "em leque" de até 3 prints sobre fundo temático.
-    var shots = (project.coverShots && project.coverShots.length
-      ? project.coverShots
-      : project.cover
-      ? [project.cover]
-      : []
-    ).slice(0, 3);
-    var stage = shots
-      .map(function (src) {
-        return (
-          '<figure class="card__shot"><img src="' +
-          asset(src) +
-          '" alt="" loading="lazy" decoding="async"></figure>'
-        );
-      })
-      .join("");
-    var cover =
-      '<div class="card__stage" data-count="' + shots.length + '">' + stage + "</div>";
+    var coverSrc = project.cover || (project.coverShots && project.coverShots[0]) || "";
+    var cover = coverSrc
+      ? '<figure class="card__cover"><img src="' +
+        asset(coverSrc) +
+        '" alt="" loading="lazy" decoding="async"></figure>'
+      : "";
 
     return (
       '<li class="reveal">' +
-      '<article class="card" data-theme="' +
-      esc(project.theme || "pink") +
-      '" data-slug="' +
+      '<a class="card" href="projeto.html?p=' +
       esc(project.slug) +
-      '" role="button" tabindex="0" data-cursor="view" aria-label="Ampliar prints de ' +
+      '" data-theme="' +
+      esc(project.theme || "pink") +
+      '" data-cursor="link" aria-label="Abrir projeto ' +
       esc(project.title) +
       '">' +
       '<div class="card__top">' +
@@ -168,11 +157,7 @@
       esc(num) +
       "</span>" +
       "</div>" +
-      '<div class="card__media" data-device="' +
-      esc(project.device || "mobile") +
-      '" data-theme="' +
-      esc(project.theme || "pink") +
-      '">' +
+      '<div class="card__media">' +
       cover +
       "</div>" +
       '<div class="card__body">' +
@@ -191,7 +176,7 @@
         ? '<p class="card__desc">' + esc(project.summary) + "</p>"
         : "") +
       "</div>" +
-      "</article>" +
+      "</a>" +
       "</li>"
     );
   }
@@ -349,176 +334,6 @@
     }
   }
 
-  /* ---- Lightbox / visualizador de prints -------------------------- */
-  // Reúne todas as imagens únicas de um projeto, na ordem de exibição.
-  function projectGallery(p) {
-    var imgs = [];
-    function add(s) {
-      if (s && imgs.indexOf(s) === -1) imgs.push(s);
-    }
-    (p.coverShots || []).forEach(add);
-    add(p.cover);
-    ((p.detail && p.detail.sections) || []).forEach(function (sec) {
-      (sec.images || []).forEach(add);
-    });
-    return imgs;
-  }
-
-  var lb = null;
-  var lbState = { items: [], active: 0, lastFocus: null };
-
-  function buildLightbox() {
-    if (lb) return lb;
-    lb = document.createElement("div");
-    lb.className = "lightbox";
-    lb.setAttribute("data-lightbox", "");
-    lb.hidden = true;
-    lb.innerHTML =
-      '<div class="lightbox__backdrop" data-lb-close></div>' +
-      '<div class="lightbox__dialog" role="dialog" aria-modal="true" aria-label="Visualização ampliada do projeto">' +
-      '<div class="lightbox__bar">' +
-      '<p class="lightbox__title" data-lb-title></p>' +
-      '<button class="lightbox__close" type="button" data-lb-close aria-label="Fechar">×</button>' +
-      "</div>" +
-      '<div class="lightbox__stage" data-lb-stage></div>' +
-      '<div class="lightbox__controls">' +
-      '<button class="lightbox__arrow" type="button" data-lb-prev aria-label="Anterior">‹</button>' +
-      '<span class="lightbox__count" data-lb-count></span>' +
-      '<button class="lightbox__arrow" type="button" data-lb-next aria-label="Próximo">›</button>' +
-      "</div>" +
-      "</div>";
-    document.body.appendChild(lb);
-
-    lb.querySelectorAll("[data-lb-close]").forEach(function (b) {
-      b.addEventListener("click", closeLightbox);
-    });
-    lb.querySelector("[data-lb-prev]").addEventListener("click", function () {
-      setActive(lbState.active - 1);
-    });
-    lb.querySelector("[data-lb-next]").addEventListener("click", function () {
-      setActive(lbState.active + 1);
-    });
-    lb.querySelector("[data-lb-stage]").addEventListener("click", function (e) {
-      var item = e.target.closest(".lightbox__item");
-      if (!item) return;
-      var i = parseInt(item.getAttribute("data-i"), 10);
-      if (i !== lbState.active) setActive(i);
-    });
-    return lb;
-  }
-
-  function layoutStage() {
-    var items = lb.querySelectorAll(".lightbox__item");
-    items.forEach(function (item, i) {
-      var off = i - lbState.active;
-      var abs = Math.abs(off);
-      var x = off * 56;
-      var scale = off === 0 ? 1 : abs === 1 ? 0.78 : 0.6;
-      var rot = off === 0 ? 0 : off < 0 ? 7 : -7;
-      var op = abs > 2 ? 0 : off === 0 ? 1 : abs === 1 ? 0.85 : 0.4;
-      item.style.transform =
-        "translate(-50%, -50%) translateX(" +
-        x +
-        "%) scale(" +
-        scale +
-        ") rotateY(" +
-        rot +
-        "deg)";
-      item.style.opacity = op;
-      item.style.zIndex = String(100 - abs);
-      item.style.pointerEvents = abs > 2 ? "none" : "auto";
-      item.classList.toggle("is-active", off === 0);
-    });
-    var count = lb.querySelector("[data-lb-count]");
-    if (count) {
-      count.textContent =
-        lbState.items.length > 1
-          ? lbState.active + 1 + " / " + lbState.items.length
-          : "";
-    }
-  }
-
-  function setActive(i) {
-    var n = lbState.items.length;
-    lbState.active = Math.max(0, Math.min(n - 1, i));
-    layoutStage();
-  }
-
-  function openLightbox(slug) {
-    var p = findProject(slug);
-    if (!p) return;
-    var imgs = projectGallery(p);
-    if (!imgs.length) return;
-
-    buildLightbox();
-    lbState.items = imgs;
-    lbState.active = 0;
-    lbState.lastFocus = document.activeElement;
-
-    var stage = lb.querySelector("[data-lb-stage]");
-    stage.setAttribute("data-device", p.device || "mobile");
-    stage.innerHTML = imgs
-      .map(function (src, i) {
-        return (
-          '<figure class="lightbox__item" data-i="' +
-          i +
-          '" data-cursor="link"><img src="' +
-          asset(src) +
-          '" alt="" decoding="async"></figure>'
-        );
-      })
-      .join("");
-    lb.querySelector("[data-lb-title]").textContent = p.title;
-
-    lb.hidden = false;
-    document.body.classList.add("lb-open");
-    requestAnimationFrame(function () {
-      lb.classList.add("is-open");
-      layoutStage();
-    });
-    var closeBtn = lb.querySelector(".lightbox__close");
-    if (closeBtn) closeBtn.focus();
-  }
-
-  function closeLightbox() {
-    if (!lb || lb.hidden) return;
-    lb.classList.remove("is-open");
-    document.body.classList.remove("lb-open");
-    var done = function () {
-      lb.hidden = true;
-      lb.removeEventListener("transitionend", done);
-    };
-    if (prefersReduced) {
-      done();
-    } else {
-      lb.addEventListener("transitionend", done);
-      setTimeout(done, 450);
-    }
-    if (lbState.lastFocus && lbState.lastFocus.focus) lbState.lastFocus.focus();
-  }
-
-  function wireLightbox() {
-    var cards = el("cards");
-    if (!cards) return;
-    cards.addEventListener("click", function (e) {
-      var card = e.target.closest(".card[data-slug]");
-      if (card) openLightbox(card.getAttribute("data-slug"));
-    });
-    cards.addEventListener("keydown", function (e) {
-      if (e.key !== "Enter" && e.key !== " ") return;
-      var card = e.target.closest(".card[data-slug]");
-      if (!card) return;
-      e.preventDefault();
-      openLightbox(card.getAttribute("data-slug"));
-    });
-    document.addEventListener("keydown", function (e) {
-      if (!lb || lb.hidden) return;
-      if (e.key === "Escape") closeLightbox();
-      else if (e.key === "ArrowLeft") setActive(lbState.active - 1);
-      else if (e.key === "ArrowRight") setActive(lbState.active + 1);
-    });
-  }
-
   /* ---- Sidebar como gaveta (mobile) ------------------------------- */
   function wireSidebar() {
     var sidebar = document.querySelector("[data-sidebar]");
@@ -654,7 +469,6 @@
     wireSidebar();
     wireCursor();
     wireReveal();
-    wireLightbox();
   }
 
   if (document.readyState === "loading") {
