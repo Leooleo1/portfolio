@@ -6,23 +6,34 @@
 window.PORTFOLIO = {
   profile: {
     name: "Leonardo Lucena",
-    role: "Designer & Desenvolvedor",
+    role: "PRODUCT DESIGNER & DEVELOPER",
     logo: "✦ Leo",
-    bio: "Projeto e construo produtos digitais — do conceito ao envio.",
+    bio: "Projeto e construo produtos digitais — do conceito à operação real.",
     location: "Brasília/DF",
     email: "leonardorlucena@gmail.com",
     signatureName: "leonardolucena",
-    signatureTag: "eu penso e então crio",
+    signatureTag: "i think then i create",
     status: "Disponível para novos projetos",
     nav: [
       { label: "Início", href: "index.html#inicio", active: true },
       { label: "Projetos", href: "index.html#projetos" },
-      { label: "Contato", href: "mailto:leonardorlucena@gmail.com" },
+      {
+        label: "Contato",
+        href:
+          "https://wa.me/5561996230474?text=" +
+          encodeURIComponent(
+            "Olá, gostaria de mais informações sobre o seu trabalho de desenvolvedor"
+          ),
+      },
     ],
     social: [
-      { label: "Email", href: "mailto:leonardorlucena@gmail.com" },
-      { label: "LinkedIn", href: "#" },
-      { label: "GitHub", href: "#" },
+      { label: "Email", action: "email-modal" },
+      {
+        label: "GitHub",
+        href: "https://github.com/Leooleo1",
+        target: "_blank",
+        rel: "noreferrer noopener",
+      },
     ],
   },
 
@@ -34,11 +45,11 @@ window.PORTFOLIO = {
       tags: ["Produto", "Mobile", "Fintech"],
       theme: "green",
       device: "mobile",
-      cover: "Projeto 1 Finance auditor/edicoes-portfolio/05-finance-hero.png",
+      cover: "Projeto 1 Finance auditor/edicoes-portfolio/proj1-hero.png",
       coverShots: [
-        "Projeto 1 Finance auditor/edicoes-portfolio/01-finance-login-iphone.png",
-        "Projeto 1 Finance auditor/edicoes-portfolio/02-finance-dashboard-iphone.png",
-        "Projeto 1 Finance auditor/edicoes-portfolio/03-finance-menu-iphone.png",
+        "Projeto 1 Finance auditor/edicoes-portfolio/proj1-1.png",
+        "Projeto 1 Finance auditor/edicoes-portfolio/proj1-2.png",
+        "Projeto 1 Finance auditor/edicoes-portfolio/proj1-3.png",
       ],
       summary:
         "App de prestação de contas para campanhas: cada lançamento fica registrado com autoria e data, pronto para auditoria.",
@@ -54,15 +65,14 @@ window.PORTFOLIO = {
             title: "Contexto",
             body:
               "Campanhas precisam prestar contas com rastreabilidade ponta a ponta. Planilhas soltas se perdem e não mostram quem lançou o quê, nem quando.",
-            images: ["Projeto 1 Finance auditor/edicoes-portfolio/01-finance-login-iphone.png"],
+            images: ["Projeto 1 Finance auditor/edicoes-portfolio/proj1-1.png"],
           },
           {
             title: "A solução",
             body:
               "Um painel financeiro onde todo lançamento carrega autor e data, alimentando relatórios já no formato da prestação de contas. Visual escuro e sóbrio para uso diário sem fadiga.",
             images: [
-              "Projeto 1 Finance auditor/edicoes-portfolio/02-finance-dashboard-iphone.png",
-              "Projeto 1 Finance auditor/edicoes-portfolio/03-finance-menu-iphone.png",
+              "Projeto 1 Finance auditor/edicoes-portfolio/proj1-2.png",
             ],
           },
           {
@@ -70,8 +80,8 @@ window.PORTFOLIO = {
             body:
               "Auditoria garantida em um backend sólido, com armazenamento de PDF, imagens das notas fiscais por contas, espaço multi-conta funcional e totalmente personalizavel",
             images: [
-              "Projeto 1 Finance auditor/edicoes-portfolio/06-finance-conformidade-callout.png",
-              "Projeto 1 Finance auditor/edicoes-portfolio/07-finance-movimentacao-callout.png",
+              "Projeto 1 Finance auditor/edicoes-portfolio/proj1-3.png",
+              "Projeto 1 Finance auditor/edicoes-portfolio/proj1-4.png",
             ],
           },
         ],
@@ -285,7 +295,14 @@ window.PORTFOLIO = {
         items: [
           { label: "Início", href: "index.html#inicio", active: true },
           { label: "Projetos", href: "index.html#projetos" },
-          { label: "Contato", href: "mailto:leonardorlucena@gmail.com" },
+          {
+            label: "Contato",
+            href:
+              "https://wa.me/5561996230474?text=" +
+              encodeURIComponent(
+                "Olá, gostaria de mais informações sobre o seu trabalho de desenvolvedor"
+              ),
+          },
         ],
       },
     ],

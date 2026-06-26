@@ -40,11 +40,9 @@
     if (p.location) parts.push("<span>" + esc(p.location) + "</span>");
     if (p.email)
       parts.push(
-        '<a href="mailto:' +
+        '<button type="button" class="contact__action" data-footer-email-trigger aria-haspopup="dialog" aria-controls="footer-email-modal" data-cursor="link">' +
           esc(p.email) +
-          '" data-cursor="link">' +
-          esc(p.email) +
-          "</a>"
+          "</button>"
       );
     if (!parts.length) return "";
     return (
@@ -148,6 +146,8 @@
       esc(project.slug) +
       '" data-theme="' +
       esc(project.theme || "pink") +
+      '" data-slug="' +
+      esc(project.slug) +
       '" data-cursor="link" aria-label="Abrir projeto ' +
       esc(project.title) +
       '">' +
@@ -301,15 +301,121 @@
       .join(" ");
   }
 
+  var footerEmailModal = null;
+  var footerEmailLastTrigger = null;
+
+  function ensureFooterEmailModal(profile) {
+    if (!profile || !profile.email || !document.body) return null;
+
+    var existing = document.querySelector("[data-footer-email-modal]");
+    if (existing) {
+      var value = existing.querySelector("[data-footer-email-value]");
+      var mailto = existing.querySelector("[data-footer-email-mailto]");
+      if (value) value.textContent = profile.email;
+      if (mailto) mailto.setAttribute("href", "mailto:" + profile.email);
+      return existing;
+    }
+
+    var modal = document.createElement("div");
+    modal.className = "footer-modal";
+    modal.id = "footer-email-modal";
+    modal.setAttribute("data-footer-email-modal", "");
+    modal.setAttribute("aria-hidden", "true");
+    modal.innerHTML =
+      '<div class="footer-modal__backdrop" data-footer-email-backdrop></div>' +
+      '<div class="footer-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="footer-email-title">' +
+      '<button type="button" class="footer-modal__close" data-footer-email-close aria-label="Fechar modal">×</button>' +
+      '<p class="footer-modal__eyebrow">Email</p>' +
+      '<h2 class="footer-modal__title" id="footer-email-title">Contato direto</h2>' +
+      '<p class="footer-modal__value" data-footer-email-value>' +
+      esc(profile.email) +
+      '</p>' +
+      '<a class="footer-modal__mailto" data-footer-email-mailto href="mailto:' +
+      esc(profile.email) +
+      '">Abrir no app de email</a>' +
+      "</div>";
+    document.body.appendChild(modal);
+    return modal;
+  }
+
+  function openFooterEmailModal(trigger, profile) {
+    footerEmailModal = footerEmailModal || ensureFooterEmailModal(profile);
+    if (!footerEmailModal) return;
+
+    footerEmailLastTrigger = trigger || document.activeElement;
+    footerEmailModal.classList.add("is-open");
+    footerEmailModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("has-footer-modal");
+
+    var closeBtn = footerEmailModal.querySelector("[data-footer-email-close]");
+    if (closeBtn) closeBtn.focus();
+  }
+
+  function closeFooterEmailModal() {
+    if (!footerEmailModal) return;
+
+    footerEmailModal.classList.remove("is-open");
+    footerEmailModal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("has-footer-modal");
+
+    if (footerEmailLastTrigger && typeof footerEmailLastTrigger.focus === "function") {
+      footerEmailLastTrigger.focus();
+    }
+  }
+
+  function wireFooterEmailModal(profile) {
+    if (!profile || !profile.email) return;
+
+    footerEmailModal = ensureFooterEmailModal(profile);
+    if (!footerEmailModal || footerEmailModal.__wired) return;
+    footerEmailModal.__wired = true;
+
+    document.addEventListener("click", function (e) {
+      var trigger = e.target.closest("[data-footer-email-trigger]");
+      if (trigger) {
+        e.preventDefault();
+        openFooterEmailModal(trigger, profile);
+        return;
+      }
+
+      if (
+        e.target.closest("[data-footer-email-close]") ||
+        e.target.closest("[data-footer-email-backdrop]")
+      ) {
+        closeFooterEmailModal();
+      }
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && footerEmailModal.classList.contains("is-open")) {
+        closeFooterEmailModal();
+      }
+    });
+  }
+
   function columnMarkup(col, profile) {
     var items = col.kind === "social" ? profile.social || [] : col.items || [];
     var links = items
       .map(function (item) {
+        if (item.action === "email-modal") {
+          return (
+            '<li><button type="button" class="footer__action" data-footer-email-trigger aria-haspopup="dialog" aria-controls="footer-email-modal" data-cursor="link">' +
+            esc(item.label || profile.email) +
+            "</button></li>"
+          );
+        }
+
+        var attrs = "";
+        if (item.target) attrs += ' target="' + esc(item.target) + '"';
+        var rel = item.rel || (item.target === "_blank" ? "noreferrer noopener" : "");
+        if (rel) attrs += ' rel="' + esc(rel) + '"';
+
         return (
           '<li><a href="' +
           esc(item.href) +
           '" data-cursor="link"' +
           (item.active ? ' class="is-active"' : "") +
+          attrs +
           ">" +
           esc(item.label) +
           "</a></li>"
@@ -370,46 +476,6 @@
     });
   }
 
-  /* ---- Cursor customizado (apenas em ponteiro fino) --------------- */
-  function wireCursor() {
-    var fine = window.matchMedia("(pointer: fine)").matches;
-    if (!fine || prefersReduced) return;
-
-    var dot = document.querySelector(".cursor-dot");
-    var ring = document.querySelector(".cursor-ring");
-    if (!dot || !ring) return;
-
-    document.body.classList.add("has-cursor");
-
-    var rx = 0, ry = 0, tx = 0, ty = 0;
-    window.addEventListener("mousemove", function (e) {
-      tx = e.clientX;
-      ty = e.clientY;
-      dot.style.transform =
-        "translate3d(" + (tx - 3.5) + "px," + (ty - 3.5) + "px,0)";
-      document.body.classList.add("cursor-ready");
-    });
-
-    (function loop() {
-      rx += (tx - rx) * 0.18;
-      ry += (ty - ry) * 0.18;
-      ring.style.transform =
-        "translate3d(" + (rx - 17) + "px," + (ry - 17) + "px,0)";
-      requestAnimationFrame(loop);
-    })();
-
-    document.addEventListener("mouseover", function (e) {
-      if (e.target.closest("a, button, [data-cursor]")) {
-        document.body.classList.add("cursor-active");
-      }
-    });
-    document.addEventListener("mouseout", function (e) {
-      if (e.target.closest("a, button, [data-cursor]")) {
-        document.body.classList.remove("cursor-active");
-      }
-    });
-  }
-
   /* ---- Revelar ao rolar + tema do rodapé na home ------------------ */
   function wireReveal() {
     var footer = document.querySelector("[data-footer]");
@@ -466,8 +532,8 @@
     renderCards(data.projects || []);
     renderCase();
     renderFooter(data.footer, profile);
+    wireFooterEmailModal(profile);
     wireSidebar();
-    wireCursor();
     wireReveal();
   }
 
