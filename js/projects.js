@@ -144,7 +144,7 @@ window.PORTFOLIO = {
       tags: ["Produto", "Mobile", "IA"],
       theme: "violet",
       device: "mobile",
-      cover: "Projeto 3 - Personal Ai/edicoes-portfolio/05-personal-ai-hero.png",
+      cover: "Projeto 3 - Personal Ai/edicoes-portfolio/05-personal-ai-hero-home.webp",
       coverShots: [
         "Projeto 3 - Personal Ai/edicoes-portfolio/01-personal-ai-home-iphone.png",
         "Projeto 3 - Personal Ai/edicoes-portfolio/02-personal-ai-actions-iphone.png",

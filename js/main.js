@@ -134,10 +134,17 @@
       .join("");
     // Capa = composição "em leque" de até 3 prints sobre fundo temático.
     var coverSrc = project.cover || (project.coverShots && project.coverShots[0]) || "";
+    var loading = index < 3 ? "eager" : "lazy";
+    var priority =
+      index === 0 || project.slug === "personal-ai" ? ' fetchpriority="high"' : "";
     var cover = coverSrc
       ? '<figure class="card__cover"><img src="' +
         asset(coverSrc) +
-        '" alt="" loading="lazy" decoding="async"></figure>'
+        '" alt="" loading="' +
+        loading +
+        '" decoding="async"' +
+        priority +
+        "></figure>"
       : "";
 
     return (

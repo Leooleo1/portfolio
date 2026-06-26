@@ -17,8 +17,8 @@ const CONTENT_TYPES = {
   ".webp": "image/webp",
 };
 
-function send(res, status, body, contentType) {
-  res.writeHead(status, { "Content-Type": contentType });
+function send(res, status, body, contentType, headers = {}) {
+  res.writeHead(status, { "Content-Type": contentType, ...headers });
   res.end(body);
 }
 
@@ -52,6 +52,9 @@ const server = http.createServer((req, res) => {
 
     const extension = path.extname(filePath).toLowerCase();
     const contentType = CONTENT_TYPES[extension] || "application/octet-stream";
+    const cacheHeaders = contentType.startsWith("image/")
+      ? { "Cache-Control": "public, max-age=86400" }
+      : {};
 
     fs.readFile(filePath, (readError, content) => {
       if (readError) {
@@ -59,7 +62,7 @@ const server = http.createServer((req, res) => {
         return;
       }
 
-      send(res, 200, content, contentType);
+      send(res, 200, content, contentType, cacheHeaders);
     });
   });
 });
