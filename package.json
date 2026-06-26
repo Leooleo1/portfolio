@@ -4,6 +4,7 @@
   "private": true,
   "description": "Portfolio estatico de Leonardo Lucena pronto para GitHub e Railway.",
   "scripts": {
+    "build": "node -e \"console.log('Static portfolio: no build step required')\"",
     "start": "node server.js"
   },
   "engines": {
