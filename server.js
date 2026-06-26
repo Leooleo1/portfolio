@@ -30,6 +30,13 @@ function resolveRequestPath(urlPath) {
 }
 
 const server = http.createServer((req, res) => {
+  const requestPath = (req.url || "/").split("?")[0];
+
+  if (requestPath === "/api/health") {
+    send(res, 200, JSON.stringify({ ok: true }), "application/json; charset=utf-8");
+    return;
+  }
+
   const filePath = resolveRequestPath(req.url || "/");
 
   if (!filePath.startsWith(ROOT)) {
