@@ -240,11 +240,11 @@ window.PORTFOLIO = {
       tags: ["Produto", "Galeria", "Web"],
       theme: "pink",
       device: "desktop",
-      cover: "projeto 5 fotos/edicoes-portfolio/04-photos-hero.png",
+      cover: "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
       coverShots: [
-        "projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.png",
-        "projeto 5 fotos/edicoes-portfolio/04-photos-hero.png",
-        "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.png",
+        "projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.webp",
+        "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
+        "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.webp",
       ],
       summary:
         "Galeria de fotos no estilo Google Photos / Pixieset: navegação por pessoas, favoritos e download em alta.",
@@ -260,15 +260,15 @@ window.PORTFOLIO = {
             title: "Contexto",
             body:
               "Centenas de fotos precisavam chegar à imprensa e à equipe sem fricção, com curadoria e download confiável.",
-            images: ["projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.png"],
+            images: ["projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.webp"],
           },
           {
             title: "A solução",
             body:
               "Uma galeria com abas de Galeria, Favoritas e Pessoas, busca por momento e download em alta — pensada primeiro para o celular, fluida no desktop.",
             images: [
-              "projeto 5 fotos/edicoes-portfolio/02-photos-mobile-showcase.png",
-              "projeto 5 fotos/edicoes-portfolio/04-photos-hero.png",
+              "projeto 5 fotos/edicoes-portfolio/02-photos-mobile-showcase.webp",
+              "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
             ],
           },
           {
@@ -276,8 +276,8 @@ window.PORTFOLIO = {
             body:
               "O case agora destaca busca, navegação por pessoas e CTA principal com callouts e composições prontas para apresentação.",
             images: [
-              "projeto 5 fotos/edicoes-portfolio/03-photos-mobile-callout.png",
-              "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.png",
+              "projeto 5 fotos/edicoes-portfolio/03-photos-mobile-callout.webp",
+              "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.webp",
             ],
           },
         ],
