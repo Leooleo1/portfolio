@@ -39,6 +39,54 @@ window.PORTFOLIO = {
 
   projects: [
     {
+      slug: "crm-politico",
+      title: "CRM Político",
+      subtitle: "Gestão de relacionamento para operação territorial",
+      tags: ["Produto", "CRM", "Campanha"],
+      theme: "teal",
+      device: "desktop",
+      cover: "Projeto 0 CRM Politico/edicoes-portfolio/crm-hero.webp",
+      coverShots: [
+        "Projeto 0 CRM Politico/edicoes-portfolio/crm-hero.webp",
+        "Projeto 0 CRM Politico/edicoes-portfolio/crm-01.webp",
+        "Projeto 0 CRM Politico/edicoes-portfolio/crm-02.webp",
+      ],
+      summary:
+        "Plataforma para organizar contatos, demandas, histórico e próximas ações da equipe em uma operação política real.",
+      meta: [
+        { k: "Função", v: "Produto, UX, UI" },
+        { k: "Tipo", v: "CRM político" },
+      ],
+      detail: {
+        intro:
+          "Um CRM criado para campanha e mandato: centraliza contatos, lideranças, demandas e histórico de relacionamento para orientar a equipe com clareza operacional.",
+        sections: [
+          {
+            title: "Contexto",
+            body:
+              "Operações políticas lidam com muitas pessoas, bairros, pedidos e retornos ao mesmo tempo. Sem um CRM, a equipe perde contexto, repete atendimento e deixa oportunidades sem acompanhamento.",
+            images: ["Projeto 0 CRM Politico/edicoes-portfolio/crm-01.webp"],
+          },
+          {
+            title: "A solução",
+            body:
+              "O produto organiza a base por contato, território, prioridade e status. Cada registro guarda histórico, responsável, origem da demanda e próxima ação para a equipe saber exatamente o que fazer.",
+            images: ["Projeto 0 CRM Politico/edicoes-portfolio/crm-02.webp"],
+          },
+          {
+            title: "Componentes-chave",
+            body:
+              "Segmentação de contatos, pipeline de demandas, agenda operacional, score de prioridade e ficha de relacionamento transformam a base em uma central de ação para campanha e pós-campanha.",
+            images: [
+              "Projeto 0 CRM Politico/edicoes-portfolio/crm-03.webp",
+              "Projeto 0 CRM Politico/edicoes-portfolio/crm-hero.webp",
+            ],
+          },
+        ],
+      },
+    },
+
+    {
       slug: "finance-auditor",
       title: "Finance Auditor",
       subtitle: "Controle financeiro com trilha de auditoria",
@@ -144,11 +192,11 @@ window.PORTFOLIO = {
       tags: ["Produto", "Mobile", "IA"],
       theme: "violet",
       device: "mobile",
-      cover: "Projeto 3 - Personal Ai/edicoes-portfolio/05-personal-ai-hero-home.webp",
+      cover: "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-hero.png",
       coverShots: [
-        "Projeto 3 - Personal Ai/edicoes-portfolio/01-personal-ai-home-iphone.png",
-        "Projeto 3 - Personal Ai/edicoes-portfolio/02-personal-ai-actions-iphone.png",
-        "Projeto 3 - Personal Ai/edicoes-portfolio/03-personal-ai-responsabilidade-iphone.png",
+        "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-1.png",
+        "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-2.png",
+        "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-3.png",
       ],
       summary:
         "Assistente de IA sob medida que sugere pautas, revisa textos e checa conformidade para a comunicação da campanha.",
@@ -164,15 +212,14 @@ window.PORTFOLIO = {
             title: "Contexto",
             body:
               "A equipe de conteúdo precisava de velocidade sem abrir mão de consistência e conformidade. Uma IA genérica não conhecia o contexto. Agora com o agente personalizado você tem geração de imagens, ideias, pensamentos, briefings, posts e organogramas completos com base no perfil do candidato. Utilizamos diversos agentes de IA para calculo de risco na campanha, monitoramento da cidade com pautas atualizadas em tempo real",
-            images: ["Projeto 3 - Personal Ai/edicoes-portfolio/01-personal-ai-home-iphone.png"],
+            images: ["Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-1.png"],
           },
           {
             title: "A solução",
             body:
               "Um assistente com atalhos para as tarefas reais — sugerir pauta, revisar texto e checar as regulações do TSE — em uma conversa calma, com identidade própria.",
             images: [
-              "Projeto 3 - Personal Ai/edicoes-portfolio/01-personal-ai-home-iphone.png",
-              "Projeto 3 - Personal Ai/edicoes-portfolio/02-personal-ai-actions-iphone.png",
+              "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-2.png",
             ],
           },
           {
@@ -180,9 +227,8 @@ window.PORTFOLIO = {
             body:
               "Otimização do tempo, pensamento do candidato, geração de imagens com base no pensamento político, multíplos agentes, risco, editorial, briefings, monitoramento, jurídico e utilização pela população para questionamento de pautas",
             images: [
-              "Projeto 3 - Personal Ai/edicoes-portfolio/03-personal-ai-responsabilidade-iphone.png",
-              "Projeto 3 - Personal Ai/edicoes-portfolio/06-personal-ai-actions-callout.png",
-              "Projeto 3 - Personal Ai/edicoes-portfolio/07-personal-ai-responsabilidade-callout.png",
+              "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-3.png",
+              "Projeto 3 - Personal Ai/edicoes-portfolio/pai-new-4.png",
             ],
           },
         ],
@@ -240,11 +286,11 @@ window.PORTFOLIO = {
       tags: ["Produto", "Galeria", "Web"],
       theme: "pink",
       device: "desktop",
-      cover: "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
+      cover: "projeto 5 fotos/edicoes-portfolio/campaign-new-01.webp",
       coverShots: [
-        "projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.webp",
-        "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
-        "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.webp",
+        "projeto 5 fotos/edicoes-portfolio/campaign-new-hero.webp",
+        "projeto 5 fotos/edicoes-portfolio/campaign-new-01.webp",
+        "projeto 5 fotos/edicoes-portfolio/campaign-new-02.webp",
       ],
       summary:
         "Galeria de fotos no estilo Google Photos / Pixieset: navegação por pessoas, favoritos e download em alta.",
@@ -260,25 +306,19 @@ window.PORTFOLIO = {
             title: "Contexto",
             body:
               "Centenas de fotos precisavam chegar à imprensa e à equipe sem fricção, com curadoria e download confiável.",
-            images: ["projeto 5 fotos/edicoes-portfolio/01-photos-browser-gallery.webp"],
+            images: ["projeto 5 fotos/edicoes-portfolio/campaign-new-01.webp"],
           },
           {
             title: "A solução",
             body:
               "Uma galeria com abas de Galeria, Favoritas e Pessoas, busca por momento e download em alta — pensada primeiro para o celular, fluida no desktop.",
-            images: [
-              "projeto 5 fotos/edicoes-portfolio/02-photos-mobile-showcase.webp",
-              "projeto 5 fotos/edicoes-portfolio/04-photos-hero.webp",
-            ],
+            images: ["projeto 5 fotos/edicoes-portfolio/campaign-new-02.webp"],
           },
           {
             title: "Componentes-chave",
             body:
               "O case agora destaca busca, navegação por pessoas e CTA principal com callouts e composições prontas para apresentação.",
-            images: [
-              "projeto 5 fotos/edicoes-portfolio/03-photos-mobile-callout.webp",
-              "projeto 5 fotos/edicoes-portfolio/05-photos-browser-callout.webp",
-            ],
+            images: ["projeto 5 fotos/edicoes-portfolio/campaign-new-hero.webp"],
           },
         ],
       },
