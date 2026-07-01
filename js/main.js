@@ -57,8 +57,8 @@
     var brand = el("brand");
     if (brand) {
       brand.innerHTML =
-        '<p class="sidebar-name">' +
-        esc(p.name) +
+        '<p class="sidebar-name sidebar-name--signature">' +
+        esc(p.signatureName || p.name) +
         "</p>" +
         '<p class="sidebar-role">' +
         esc(p.role) +
